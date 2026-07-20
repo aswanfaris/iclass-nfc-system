@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block title %}Dashboard | iClass NFC{% endblock %}
+{% block content %}
+<header class="page-header">
+    <div>
+        <span class="eyebrow">iClass NFC Version 3.0</span>
+        <h2>Dashboard</h2>
+        <p>Ringkasan sistem dan statistik kehadiran semasa.</p>
+    </div>
+    <div class="welcome-card">
+        <span>Selamat datang</span>
+        <strong>{{ session.get('full_name') }}</strong>
+        <small>{{ session.get('role')|title }}</small>
+    </div>
+</header>
+
+<section class="stats-grid">
+    <article class="stat-card stat-blue">
+        <span>Total Students</span>
+        <strong>{{ total_students }}</strong>
+    </article>
+    <article class="stat-card stat-green">
+        <span>Attendance Today</span>
+        <strong>{{ attendance_today }}</strong>
+    </article>
+    <article class="stat-card stat-teal">
+        <span>Present</span>
+        <strong>{{ present_today }}</strong>
+    </article>
+    <article class="stat-card stat-orange">
+        <span>Late</span>
+        <strong>{{ late_today }}</strong>
+    </article>
+    <article class="stat-card stat-gray">
+        <span>No Class</span>
+        <strong>{{ no_class_today }}</strong>
+    </article>
+</section>
+
+<section class="dashboard-grid">
+    <article class="panel">
+        <div class="panel-header">
+            <div>
+                <span class="eyebrow">Quick Access</span>
+                <h3>Modul Sistem</h3>
+            </div>
+        </div>
+
+        <div class="quick-grid">
+            <a class="quick-card blue" href="{{ url_for('module_placeholder', module_name='classes') }}">
+                <strong>Class Management</strong>
+                <span>Urus kelas, subjek dan jadual.</span>
+            </a>
+            <a class="quick-card green" href="{{ url_for('module_placeholder', module_name='students') }}">
+                <strong>Student Profile</strong>
+                <span>Daftar dan lihat profil pelajar.</span>
+            </a>
+            <a class="quick-card orange" href="{{ url_for('module_placeholder', module_name='attendance') }}">
+                <strong>NFC Attendance</strong>
+                <span>Tap kad dan rekod kehadiran.</span>
+            </a>
+            <a class="quick-card purple" href="{{ url_for('module_placeholder', module_name='analytics') }}">
+                <strong>Analytics</strong>
+                <span>Analisis kehadiran dan pelajar lewat.</span>
+            </a>
+            <a class="quick-card dark" href="{{ url_for('module_placeholder', module_name='reports') }}">
+                <strong>Report & Export</strong>
+                <span>PDF, CSV dan cetakan.</span>
+            </a>
+        </div>
+    </article>
+
+    <article class="panel">
+        <div class="panel-header">
+            <div>
+                <span class="eyebrow">Live Data</span>
+                <h3>Recent Attendance</h3>
+            </div>
+        </div>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Name</th>
+                        <th>Class</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in recent_attendance %}
+                    <tr>
+                        <td>{{ item.student_id }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.class_name or '-' }}</td>
+                        <td>{{ item.time }}</td>
+                        <td><span class="status-pill">{{ item.status }}</span></td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="5" class="empty-cell">Belum ada rekod kehadiran.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </article>
+</section>
+{% endblock %}

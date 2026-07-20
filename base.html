@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ms">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}iClass NFC{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    {% if session.get('user_id') %}
+    <div class="app-shell">
+        <aside class="sidebar">
+            <div class="brand-card">
+                <img src="{{ url_for('static', filename='images/logo_kptm.png') }}"
+                     alt="Logo KPTM" class="brand-logo">
+                <h1>iClass NFC</h1>
+                <p>Smart Classroom Management System</p>
+            </div>
+
+            <nav class="nav-menu">
+                <a href="{{ url_for('dashboard') }}"
+                   class="{% if request.endpoint == 'dashboard' %}active{% endif %}">
+                    Dashboard
+                </a>
+                <a href="{{ url_for('module_placeholder', module_name='classes') }}">
+                    Class Management
+                </a>
+                <a href="{{ url_for('module_placeholder', module_name='students') }}">
+                    Student Profile
+                </a>
+                <a href="{{ url_for('module_placeholder', module_name='attendance') }}">
+                    NFC Attendance
+                </a>
+                <a href="{{ url_for('module_placeholder', module_name='analytics') }}">
+                    Analytics
+                </a>
+                <a href="{{ url_for('module_placeholder', module_name='reports') }}">
+                    Report & Export
+                </a>
+                {% if session.get('role') == 'admin' %}
+                <a href="{{ url_for('users') }}"
+                   class="{% if request.endpoint == 'users' %}active{% endif %}">
+                    User Management
+                </a>
+                {% endif %}
+            </nav>
+
+            <div class="sidebar-user">
+                <strong>{{ session.get('full_name') }}</strong>
+                <span>{{ session.get('role')|title }}</span>
+                <a href="{{ url_for('logout') }}" class="logout-link">Log Keluar</a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            {% include "_messages.html" %}
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+    {% else %}
+        {% include "_messages.html" %}
+        {% block public_content %}{% endblock %}
+    {% endif %}
+</body>
+</html>

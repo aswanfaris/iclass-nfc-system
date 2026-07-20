@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %}User Management | iClass NFC{% endblock %}
+{% block content %}
+<header class="page-header">
+    <div>
+        <span class="eyebrow">Administration</span>
+        <h2>User Management</h2>
+        <p>Tambah akaun pentadbir atau pensyarah.</p>
+    </div>
+</header>
+
+<section class="two-column">
+    <article class="panel">
+        <div class="panel-header">
+            <h3>Tambah Pengguna</h3>
+        </div>
+
+        <form method="post" action="{{ url_for('add_user') }}" class="form-grid">
+            <label>Nama penuh</label>
+            <input type="text" name="full_name" required>
+
+            <label>Username</label>
+            <input type="text" name="username" required>
+
+            <label>Kata laluan</label>
+            <input type="password" name="password" minlength="6" required>
+
+            <label>Peranan</label>
+            <select name="role">
+                <option value="lecturer">Pensyarah</option>
+                <option value="admin">Admin</option>
+            </select>
+
+            <label>E-mel</label>
+            <input type="email" name="email">
+
+            <button type="submit" class="primary-button">Simpan Pengguna</button>
+        </form>
+    </article>
+
+    <article class="panel">
+        <div class="panel-header">
+            <h3>Senarai Pengguna</h3>
+        </div>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nama</th>
+                        <th>Username</th>
+                        <th>Peranan</th>
+                        <th>E-mel</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td>{{ user.full_name }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.role|title }}</td>
+                        <td>{{ user.email or '-' }}</td>
+                        <td>{{ 'Aktif' if user.is_active else 'Tidak aktif' }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </article>
+</section>
+{% endblock %}

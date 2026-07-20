@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}{{ module_title }} | iClass NFC{% endblock %}
+{% block content %}
+<header class="page-header">
+    <div>
+        <span class="eyebrow">iClass NFC Version 3.0</span>
+        <h2>{{ module_title }}</h2>
+        <p>Modul ini akan dibangunkan dalam fasa seterusnya.</p>
+    </div>
+</header>
+
+<section class="panel placeholder-panel">
+    <div class="placeholder-icon">✓</div>
+    <h3>Fasa 1 berjaya disediakan</h3>
+    <p>
+        Login, kawalan peranan pengguna, pengurusan akaun dan dashboard
+        telah tersedia. Modul <strong>{{ module_title }}</strong> akan
+        disambungkan dalam pembangunan berikutnya.
+    </p>
+    <a href="{{ url_for('dashboard') }}" class="primary-button link-button">
+        Kembali ke Dashboard
+    </a>
+</section>
+{% endblock %}

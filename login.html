@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Login | iClass NFC{% endblock %}
+{% block public_content %}
+<div class="login-page">
+    <div class="login-card">
+        <img src="{{ url_for('static', filename='images/logo_kptm.png') }}"
+             alt="Logo KPTM" class="login-logo">
+        <h1>iClass NFC</h1>
+        <p class="login-subtitle">Web Based Smart Classroom Management System</p>
+
+        <form method="post" class="login-form">
+            <label>Username</label>
+            <input type="text" name="username" required autocomplete="username">
+
+            <label>Password</label>
+            <input type="password" name="password" required autocomplete="current-password">
+
+            <button type="submit">Log Masuk</button>
+        </form>
+
+        <div class="demo-box">
+            <strong>Akaun demo</strong>
+            <span>Username: admin</span>
+            <span>Password: admin123</span>
+        </div>
+    </div>
+</div>
+{% endblock %}
